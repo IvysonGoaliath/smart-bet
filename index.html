@@ -355,4 +355,26 @@ document.getElementById('get-started').addEventListener('click', function() {
         top: document.getElementById('tips').offsetTop,
         behavior: 'smooth'
     });
+    document.addEventListener('DOMContentLoaded', () => {
+    fetch('https://github.com/IvysonGoaliath/smart-bet/blob/80710c329a54cf61b3c32f52070cd9c5daebad2f/tips_data.json')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('betting-tips-container');
+            container.innerHTML = '';
+
+            data.tips.forEach(tip => {
+                const tipCard = document.createElement('div');
+                tipCard.classList.add('tip-card');
+
+                tipCard.innerHTML = `
+                    <i class="fas fa-soccer-ball"></i>
+                    <h3>${tip.match}</h3>
+                    <p>${tip.tip}</p>
+                `;
+
+                container.appendChild(tipCard);
+            });
+        })
+        .catch(error => console.error('Error fetching tips:', error));
+});
 });</script>
